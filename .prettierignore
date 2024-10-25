@@ -1,0 +1,12 @@
+//
+
+# Ignore all files in the "node_modules" director
+node_modules/
+
+
+# Ignore compiled JS files in the dist directory
+
+dist/
+
+dist
+build/
