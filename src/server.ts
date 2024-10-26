@@ -8,6 +8,6 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
-app.use('/', router);
+app.use('/api/v1/books', router);
 
 export default app;
