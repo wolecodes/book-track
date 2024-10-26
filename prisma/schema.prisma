@@ -14,14 +14,14 @@ datasource db {
 }
 
 model Book {
-  id                 Int      @id @default(autoincrement())
-  title              String
-  author             String
-  genre              String
-  publicationDate    DateTime
-  availabilityStatus String
-  edition            String
-  summary            String
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  title           String
+  author          String
+  genre           String
+  publicationDate DateTime
+  status          String
+  edition         String
+  summary         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
