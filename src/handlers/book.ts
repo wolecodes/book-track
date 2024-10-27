@@ -2,13 +2,6 @@ import prisma from '../lib/client';
 import type { Request, Response } from 'express';
 import { bookSchema } from '../validators';
 import { BookInputType } from '../types';
-import { request } from 'http';
-import { BodyMixin } from 'undici-types';
-import { brotliDecompressSync } from 'zlib';
-import { connected } from 'process';
-import { map } from 'zod';
-import { isBooleanObject } from 'util/types';
-import { isArray } from 'util';
 
 function parsePositiveInt(value: unknown, defaultValue: number): number {
   if (typeof value === 'string') {
@@ -203,6 +196,34 @@ async function createMultipleBook(
       status: 'eroor',
       code: 500,
       message: 'Internal server Error',
+    });
+  }
+}
+
+export async function deleteBook(req: Request, res: Response) {
+  try {
+    const bookId = req.params.id;
+
+    await prisma.book.delete({
+      where: {
+        id: parseInt(bookId),
+      },
+    });
+
+    res.json({
+      status: 'sucess',
+      code: 200,
+      message: 'Book Deleted Sucessfully',
+      suceess: {
+        details: `Book with ${bookId} was deleted successfully `,
+      },
+    });
+  } catch (error) {
+    console.error('Error deleting book', error);
+    res.status(500).json({
+      status: 'error',
+      code: 500,
+      message: 'An error occurred while deleting the book.',
     });
   }
 }
