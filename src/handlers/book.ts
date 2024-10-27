@@ -42,7 +42,9 @@ export async function getBooks(req: Request, res: Response): Promise<void> {
     res.json({
       status: 'success',
       message: 'Books retrieved successfully',
-      data: books,
+      data: {
+        books: books,
+      },
       pagination: {
         current_age: pageParam,
         per_page: limit,
@@ -65,20 +67,26 @@ export async function getBooks(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function getBook(req: Request, res: Response): Promise<void> {
+  const { params } = req;
   try {
-    const bookId = parseInt(req.params.id);
-
-    const book = await prisma.book.findUnique({
-      where: {
-        id: bookId,
-      },
-    });
-    res.json({
-      status: 'success',
-      code: 200,
-      message: 'Book retrieved successfully',
-      data: book,
-    });
+    if (params.id && params.id.length > 0) {
+      const bookId = parseInt(params.id);
+      const book = await prisma.book.findUnique({
+        where: {
+          id: bookId,
+        },
+      });
+      if (book === null) {
+        res.status(400).json('Book Not Found');
+        return;
+      }
+      res.json({
+        status: 'success',
+        code: 200,
+        message: 'Book retrieved successfully',
+        data: book,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       status: 'error',
@@ -200,22 +208,55 @@ async function createMultipleBook(
   }
 }
 
-export async function deleteBook(req: Request, res: Response) {
+export async function updateBook(req: Request, res: Response) {
+  const { params } = req;
   try {
-    const bookId = req.params.id;
+    const updatedData = bookSchema.parse(params.body);
 
-    await prisma.book.delete({
+    const bookId: number = parseInt(params.id);
+    const updatedBook = await prisma.book.update({
       where: {
-        id: parseInt(bookId),
+        id: bookId,
+      },
+      data: updatedData,
+    });
+    res.json({
+      status: 'sucess',
+      code: 200,
+      message: 'Book Updated successfully',
+      data: {
+        datials: `Book with ${updatedBook.id} was updated`,
       },
     });
-
+  } catch (error) {}
+}
+/**
+ * delete a book record in the database record
+ * @param {Request} req
+ * @param {Response} res
+ * returns a promise that resolve when a book is deleted
+ */
+export async function deleteBook(req: Request, res: Response) {
+  const { params } = req;
+  try {
+    if (params.id && params.id.length > 0) {
+      const bookId: number = parseInt(params.id);
+      const book = await prisma.book.delete({
+        where: {
+          id: bookId,
+        },
+      });
+      if (book === null) {
+        res.status(400).json('Book Not found');
+        return;
+      }
+    }
     res.json({
       status: 'sucess',
       code: 200,
       message: 'Book Deleted Sucessfully',
       suceess: {
-        details: `Book with ${bookId} was deleted successfully `,
+        details: `Book with ${params.id} was deleted successfully `,
       },
     });
   } catch (error) {
