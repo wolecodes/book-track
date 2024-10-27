@@ -233,7 +233,14 @@ export async function updateBook(req: Request, res: Response) {
         datials: `Book with ${updatedBook.id} was updated`,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error updating book', error);
+    res.status(500).json({
+      status: 'error',
+      code: 500,
+      message: 'An error occurred while updating the book',
+    });
+  }
 }
 /**
  * delete a book record in the database record
