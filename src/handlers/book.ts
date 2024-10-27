@@ -1,7 +1,7 @@
 import prisma from '../lib/client';
 import type { Request, Response } from 'express';
 import { bookSchema } from '../validators';
-import { BookInputType } from '../types';
+import type { BookInputType } from '../types';
 
 function parsePositiveInt(value: unknown, defaultValue: number): number {
   if (typeof value === 'string') {
@@ -43,7 +43,7 @@ export async function getBooks(req: Request, res: Response): Promise<void> {
       status: 'success',
       message: 'Books retrieved successfully',
       data: {
-        books: books,
+        books,
       },
       pagination: {
         current_age: pageParam,
@@ -150,8 +150,13 @@ async function createSingleBook(body: BookInputType, res: Response) {
         summary,
       },
     });
-    res.json({ id: book.id });
-  } catch (error: any) {
+    res.json({
+      status: 'success',
+      code: 201,
+      message: 'Book created successfully',
+      id: book.id,
+    });
+  } catch (error) {
     console.error('Error creating student', error);
     if (error.code === 'P2002') {
       res.status(400).json('Unexpected error');
@@ -264,7 +269,7 @@ export async function deleteBook(req: Request, res: Response) {
     res.status(500).json({
       status: 'error',
       code: 500,
-      message: 'An error occurred while deleting the book.',
+      message: 'An error occurred while deleting the book',
     });
   }
 }
