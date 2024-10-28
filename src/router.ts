@@ -176,6 +176,7 @@ router.get('/:id', getBook);
  *       500:
  *         description: Server error
  */
+router.post('/', createBook);
 // PUT handler for updating book by ID
 router.post('/:id', updateBook);
 
