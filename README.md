@@ -45,7 +45,7 @@ A simple library management system APi for managing books and track availability
 https://book-track.onrender.com
 
 #### Create Book(s)
-- **URL**: `/api/books/`
+- **URL**: `/api/v1/books/`
 - **Method**: `POST`
 - **Description**: Create one or multiple books
 - **Request Body**: 
@@ -62,7 +62,7 @@ https://book-track.onrender.com
   ```
 
 #### Get All Books
-- **URL**: `/api/books/`
+- **URL**: `/api/v1/books/`
 - **Method**: `GET`
 - **Description**: Retrieve all books
 - **Query Parameters**:
