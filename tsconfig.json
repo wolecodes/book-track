@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "ES2018",
-    "outDir": "dist",
+    "outDir": "./dist",
     "rootDir": "./src",
     "strict": false,
     "lib": ["esnext"],
+    "skipLibCheck": true, // Add this line
     "esModuleInterop": true,
+    "declaration": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "declaration": true
+    "moduleResolution": "node"
   },
-
   "include": ["src/**/*.ts"]
 }
