@@ -24,8 +24,12 @@ export function swaggerDoc(app: Express, port: number): void {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
   });
+  const isProd = process.env.NODE_ENV === 'production';
+  const baseUrl = isProd
+    ? process.env.BASE_URL // Use provided URL in production
+    : `http://localhost:${port}`;
 
-  console.log(`Docs available at http://localhost:${port}/api-docs`);
+  console.log(` 📚 Docs available at ${baseUrl}/api-docs`);
 }
 
 export default swaggerDoc;

@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
-app.listen(3000, () => {
+app.listen(config.port, () => {
   console.log(`Server is running in ${config.nodeEnv} ${config.port}`);
-  swaggerDoc(app, 3000);
+  swaggerDoc(app, Number(config.port));
 });
