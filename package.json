@@ -4,13 +4,13 @@
   "description": "A simple library management system",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "lint:check": "eslint . --ext .js,.ts",
     "dev": "ts-node src/index.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
-    "build": "tsc -p tsconfig.json",
+    "build": "npx tsc -p tsconfig.json",
     "start": "node dist/index.js"
   },
   "prisma": {

@@ -3,9 +3,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
+    "target": "ESNext",
+    "module": "CommonJS",
     "strict": false,
     "lib": ["esnext"],
-    "skipLibCheck": true, // Add this line
     "esModuleInterop": true,
     "declaration": true,
     "resolveJsonModule": true,

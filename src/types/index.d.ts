@@ -3,7 +3,7 @@ export interface BookInputType {
   author: string;
   genre: string;
   publicationDate: Date;
-  status: 'available' | 'borrowed' | 'lost' | 'damaged';
+  status: string;
   edition: string;
   summary: string;
 }
