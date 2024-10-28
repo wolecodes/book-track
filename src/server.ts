@@ -1,5 +1,7 @@
 import express, { type Express } from 'express';
 import router from './router';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './utils/swagger';
 
 const app: Express = express();
 app.use(express.json());
@@ -11,6 +13,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/books', router);
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Middleware to catch unhandled routes
 app.use((_req, _res, next) => {
   const error = new Error('ROUTE NOT FOUND');
