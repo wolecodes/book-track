@@ -8,7 +8,7 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Library API',
+      title: 'LIBRARY SYSTEM API',
       version,
       description: 'A simple Express Library API',
     },

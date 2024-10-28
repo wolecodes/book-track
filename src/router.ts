@@ -38,17 +38,17 @@ const router = Router();
  *       properties:
  *         title:
  *           type: string
- *           example: "Sample Book"
+ *           example: "InternPulse Sample Book"
  *         author:
  *           type: string
- *           example: "John Doe"
+ *           example: "John Diginee"
  *         genre:
  *           type: string
- *           example: "Fiction"
+ *           example: "Interns"
  *         publicationDate:
  *           type: string
  *           format: date
- *           example: "2023-01-01"
+ *           example: "2024-01-01"
  *         availabilityStatus:
  *           type: string
  *           example: "Available"
@@ -79,6 +79,7 @@ router.get('/', getBooks);
  *         schema:
  *           type: string
  *         description: The book ID
+ *
  *     responses:
  *       200:
  *         description: Book found
@@ -86,6 +87,34 @@ router.get('/', getBooks);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Book'
+ * components:
+ *   schemas:
+ *     Book:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *           example: "Sample Book"
+ *         author:
+ *           type: string
+ *           example: "John Doe"
+ *         genre:
+ *           type: string
+ *           example: "Fiction"
+ *         publicationDate:
+ *           type: string
+ *           format: date
+ *           example: "2023-01-01"
+ *         availabilityStatus:
+ *           type: string
+ *           example: "Available"
+ *         edition:
+ *           type: string
+ *           example: "2nd Edition"
+ *         summary:
+ *           type: string
+ *           example: "A sample book summary"
+ *
  */
 router.get('/:id', getBook);
 
@@ -104,10 +133,10 @@ router.get('/:id', getBook);
  *         application/json:
  *           schema:
  *             oneOf:
- *               - $ref: '#/components/schemas/BookInput'
+ *               - $ref: '#/components/schemas/Book'
  *               - type: array
  *                 items:
- *                   $ref: '#/components/schemas/BookInput'
+ *                   $ref: '#/components/schemas/Book'
  *           examples:
  *             singleBook:
  *               summary: Single Book Example
@@ -135,42 +164,9 @@ router.get('/:id', getBook);
  *                   publicationDate: "2023-02-01"
  *                   status: "Available"
  *                   edition: "2nd Edition"
- *                   summary: "Summary 2"
- * components:
- *   schemas:
- *     BookInput:
- *       type: object
- *       required:
- *         - title
- *         - author
- *       properties:
- *         title:
- *           type: string
- *         author:
- *           type: string
- *         genre:
- *           type: string
- *         publicationDate:
- *           type: string
- *           format: date
- *         status:
- *           type: string
- *           enum: [Available, Borrowed, Maintenance]
- *         edition:
- *           type: string
- *         summary:
- *           type: string
  *     responses:
  *       201:
  *         description: Book(s) created successfully
- *         content:
- *           application/json:
- *             schema:
- *               oneOf:
- *                 - $ref: '#/components/schemas/Book'
- *                 - type: array
- *                   items:
- *                     $ref: '#/components/schemas/Book'
  *       400:
  *         description: Invalid input
  *       500:
@@ -178,7 +174,60 @@ router.get('/:id', getBook);
  */
 router.post('/', createBook);
 // PUT handler for updating book by ID
-router.post('/:id', updateBook);
+/**
+ * @openapi
+ * /api/books/{id}:
+ *   put:
+ *     tags:
+ *       - Books
+ *     summary: Update a book by ID
+ *     description: Update an existing book by its ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The book ID to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "Updated Book Title"
+ *               author:
+ *                 type: string
+ *                 example: "Updated Author"
+ *               genre:
+ *                 type: string
+ *                 example: "Fiction"
+ *               publicationDate:
+ *                 type: string
+ *                 format: date
+ *                 example: "2023-01-01"
+ *               status:
+ *                 type: string
+ *                 enum: [Available, Borrowed, Maintenance]
+ *                 example: "Available"
+ *               edition:
+ *                 type: string
+ *                 example: "2nd Edition"
+ *               summary:
+ *                 type: string
+ *                 example: "Updated summary"
+ *     responses:
+ *       200:
+ *         description: Book updated successfully
+ *       404:
+ *         description: Book not found
+ *       400:
+ *         description: Invalid input
+ */
+router.put('/:id', updateBook);
 
 // DELETE handler for deleting book by ID
 /**
