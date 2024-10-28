@@ -8,8 +8,10 @@
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "lint:check": "eslint . --ext .js,.ts",
+    "dev": "ts-node src/index.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
-    "dev": "ts-node src/index.ts"
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
   },
   "prisma": {
     "seed": "tsx src/seed/index.ts"
