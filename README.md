@@ -124,8 +124,8 @@ The collection includes all API endpoints:
 
 #### Books
 
-- `POST /api/books` - Create a book(s)
-- `GET /api/books` - Get all books
-- `GET /api/books/{id}` - Get a book by ID
-- `PUT /api/books/{id}` - Update a book
-- `DELETE /api/books/{id}` - Delete a book
+- `POST /api/v1/books` - Create a book(s)
+- `GET /api/v1/books` - Get all books
+- `GET /api/v1/books/{id}` - Get a book by ID
+- `PUT /api/v1/books/{id}` - Update a book
+- `DELETE /api/v1/books/{id}` - Delete a book
