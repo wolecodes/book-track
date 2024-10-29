@@ -214,11 +214,11 @@ async function createMultipleBook(
 }
 
 export async function updateBook(req: Request, res: Response) {
-  const { params } = req;
+  const { body: updateBookData } = req;
   try {
-    const updatedData = bookSchema.parse(params.body);
+    const updatedData = bookSchema.parse(updateBookData);
 
-    const bookId: number = parseInt(params.id);
+    const bookId: number = parseInt(req.params.id);
     const updatedBook = await prisma.book.update({
       where: {
         id: bookId,
